@@ -21,8 +21,9 @@
             margin: auto;
         }
 
-        :not(div) {
+        input {
             border: none;
+            background: none;
         }
 
         img {
@@ -81,7 +82,7 @@
         .Navigatior>ul>li>input {
             width: 100%;
             height: 100%;
-            background-color: #00ff0005;
+            transition: 750ms;
         }
 
         .Navigatior>ul>li>input:hover {
@@ -114,9 +115,95 @@
             height: 30%;
         }
 
+        .Body>.Info>.LoginBox>.LoginTitle {
+            width: 100%;
+            height: 30%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginTitle>input {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 30px;
+            user-select: none;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo {
+            width: 100%;
+            height: 70%;
+            overflow: hidden;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>* {
+            float: left;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginText {
+            width: 70%;
+            height: 100%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginText>.LoginId {
+            width: 100%;
+            height: 50%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginText>.LoginId>#id {
+            width: 100%;
+            height: 100%;
+            text-align: left;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginText>.LoginPw {
+            width: 100%;
+            height: 50%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginText>.LoginPw>#pw {
+            width: 100%;
+            height: 100%;
+            text-align: left;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn {
+            width: 30%;
+            height: 100%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>div {
+            width: 100%;
+            height: 100%;
+            padding: 10%;
+        }
+
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>div>#loginbtn {
+            width: 100%;
+            height: 100%;
+        }
+
         .Body>.Info>.Email {
             width: auto;
             height: 70%;
+        }
+
+        .Body>.Info>.Email>.EmailTitle {
+            width: auto;
+            height: 10%;
+        }
+
+        .Body>.Info>.Email>.EmailList {
+            width: auto;
+            height: 90%;
+        }
+
+        .Body>.Info>.Email>.EmailList>ul {
+            width: auto;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .Body>.Info>.Email>.EmailList>ul>li {
+            border: 1px solid #000000;
         }
 
         .Footer {
@@ -148,8 +235,53 @@
         <div class="Body">
             <div class="Contents">Contents</div>
             <div class="Info">
-                <div class="LoginBox">LoginBox</div>
-                <div class="Email">Email</div>
+                <div class="LoginBox">
+                    <div class="LoginTitle">
+                        <input type="text" value="LoginBox" readonly>
+                    </div>
+                    <div class="LoginInfo">
+                        <div class="LoginText">
+                            <div class="LoginId">
+                                <input type="text" id="id" placeholder="ID를 입력하세요.">
+                            </div>
+                            <div class="LoginPw">
+                                <input type="password" id="pw" placeholder="PW를 입력하세요.">
+                            </div>
+                        </div>
+                        <div class="LoginBtn">
+                            <div>
+                                <button id="loginbtn">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Email">
+                    <div class="EmailTitle">Mail box</div>
+                    <div class="EmailList">
+                        <ul>
+                            <li>1번째 메일입니다.</li>
+                            <li>2번째 메일입니다.</li>
+                            <li>3번째 메일입니다.</li>
+                            <li>4번째 메일입니다.</li>
+                            <li>5번째 메일입니다.</li>
+                            <li>6번째 메일입니다.</li>
+                            <li>7번째 메일입니다.</li>
+                            <li>8번째 메일입니다.</li>
+                            <li>9번째 메일입니다.</li>
+                            <li>10번째 메일입니다.</li>
+                            <li>11번째 메일입니다.</li>
+                            <li>12번째 메일입니다.</li>
+                            <li>13번째 메일입니다.</li>
+                            <li>14번째 메일입니다.</li>
+                            <li>15번째 메일입니다.</li>
+                            <li>16번째 메일입니다.</li>
+                            <li>17번째 메일입니다.</li>
+                            <li>18번째 메일입니다.</li>
+                            <li>19번째 메일입니다.</li>
+                            <li>20번째 메일입니다.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="Footer">Footer</div>

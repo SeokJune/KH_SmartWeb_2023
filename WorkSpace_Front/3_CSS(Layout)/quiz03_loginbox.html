@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        div {
+            border: 1px solid black;
+        }
+
+        .LoginBox {
+            width: 400px;
+            height: 200px;
+            margin: auto;
+        }
+
+        .LoginBox>.LoginTitle {
+            width: 100%;
+            height: 30%;
+        }
+
+        .LoginBox>.LoginTitle>input {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 30px;
+            user-select: none;
+        }
+
+        .LoginBox>.LoginInfo {
+            width: 100%;
+            height: 70%;
+            overflow: hidden;
+        }
+
+        .LoginBox>.LoginInfo>* {
+            float: left;
+        }
+
+        .LoginBox>.LoginInfo>.LoginText{
+            width: 70%;
+            height: 100%;
+
+        }
+
+        .LoginBox>.LoginInfo>.LoginText>.LoginId{
+            width: 100%;
+            height: 50%;
+
+        }
+
+        .LoginBox>.LoginInfo>.LoginText>.LoginId>#id{
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .LoginBox>.LoginInfo>.LoginText>.LoginPw{
+            width: 100%;
+            height: 50%;
+        }
+
+        .LoginBox>.LoginInfo>.LoginText>.LoginPw>#pw{
+            width: 100%;
+            height: 100%;
+        }
+
+        .LoginBox>.LoginInfo>.LoginBtn{
+            width: 30%;
+            height: 100%;
+        }
+
+        .LoginBox>.LoginInfo>.LoginBtn>button{
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="LoginBox">
+        <div class="LoginTitle">
+            <input type="text" value="LoginBox" readonly>
+        </div>
+        <div class="LoginInfo">
+            <div class="LoginText">
+                <div class="LoginId">
+                    <input type="text" id="id" placeholder="ID를 입력하세요.">
+                </div>
+                <div class="LoginPw">
+                    <input type="text" id="pw" placeholder="PW를 입력하세요.">
+                </div>
+            </div>
+            <div class="LoginBtn">
+                <button>Login</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
