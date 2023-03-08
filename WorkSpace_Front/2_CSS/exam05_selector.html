@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam05_selector</title>
+    <style>
+        /* 자손 선택자 (>) */
+        div>h4 {
+            background-color: pink;
+        }
+
+        /* 후손 선택자 (' ') */
+        div h4 {
+            color: aqua;
+        }
+
+        div li>h4 {
+            border: 5px dotted red;
+        }
+
+        /* 동위(형제) 선택자 (+ or ~)*/
+        /* + : 선택한 요소의 뒷 요소 */
+        /* ~ : 선택한 요소의 뒷 요소중에서 동위 요소의 범위 */
+        p+li+li {
+            color: blueviolet;
+        }
+
+        p~li {
+            color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h4>자손1</h4>
+        <h5>자손2</h5>
+        <ul>
+            <li>
+                <h4>후손</h4>
+            </li>
+            <li>Apple</li>
+            <p>과일</p>
+            <li>Orange</li>
+            <li>Mango</li>
+        </ul>
+    </div>
+</body>
+
+</html>

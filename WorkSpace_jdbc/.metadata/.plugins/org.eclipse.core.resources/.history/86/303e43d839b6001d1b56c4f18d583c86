@@ -1,0 +1,127 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.MoviesDTO;
+
+// 데이터롸 관현된 모든 작업을 총괄하는 클래스
+// DAO : Data Access Object
+public class MoviesDAO {
+
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String id = "kh";
+	private String pwd = "kh";
+
+	private Connection conn = null;
+	private Statement stat = null;
+
+	private void movieConnect() throws Exception{
+		conn = DriverManager.getConnection(url, id, pwd);
+
+		stat = conn.createStatement();
+	}
+
+	public void moviedisConnect(){
+		if(conn != null) {
+			try {
+				movieConnect();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public int movieInsert(String title, String gerne) throws Exception {
+		movieConnect();
+		
+		String sql = "INSERT INTO MOVIES VALUES (MOVIES_SEQ.NEXTVAL, '" + title + "', '" + gerne + "')";
+		int result = stat.executeUpdate(sql);
+
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSelectAll() throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		String sql = "SELECT ID AS \"아이디\", TITLE AS \"제목\", GERNE AS \"장르\" FROM MOVIES ORDER BY \"아이디\"";
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			mlist.add(new MoviesDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
+		}
+		
+		movieConnect();
+
+		return mlist;
+	}
+
+	public boolean isIdExist(int id) throws Exception {
+		boolean result = false;
+		String sql = "SELECT TITLE FROM MOVIES WHERE ID = " + id;
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		if(rs.next()) {
+			result = true;
+		}
+		
+		movieConnect();
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSelectByTitle(String title) throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		String sql = "SELECT ID, TITLE, GERNE FROM MOVIES WHERE TITLE LIKE '%" + title + "%'";
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			mlist.add(new MoviesDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
+		}
+		
+		movieConnect();
+
+		return mlist;
+	}
+
+	public int movieUpdate(int id, String title, String gerne) throws Exception {
+		String sql = "UPDATE MOVIES SET TITLE = '" + title + "', gerne = '" + gerne + "' WHERE ID = " + id;
+
+		movieConnect();
+		
+		int result = stat.executeUpdate(sql);
+		
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+	public int movieDelete(int id) throws Exception {
+		String sql = "DELETE FROM MOVIES WHERE ID = " + id;
+
+		movieConnect();
+		
+		int result = stat.executeUpdate(sql);
+
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+}

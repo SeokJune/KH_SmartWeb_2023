@@ -1,0 +1,134 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.StudentsDTO;
+import main.Main;
+
+// try ~ catch				- 실행코드 내에서 하나 이상의 예외가 발생하고, 이를 모두 한가지 로직으로 처리할 경우
+// try ~ catch, catch, ...	- 실행코드 내에서 다양한 종류의 예외가 발생하고, 이를 다 따로따로 터리해야 할 경우
+// try ~ finally			- 실행코드를 완료하거나 예외가 발생했을 시, 반드시(무조건) 실행되어야 할 코드가 있는 경우
+// try ~ catch ~ finally	- 
+// try with resources		- close가 필요한 자원을 사용하는 경우, 절대적으로 자원을 close하는 거 심플한 문법
+//							- AutoCloseable을 상속한 클래스에 한하여 적용 가능
+
+public class StudentsDAO{
+	public int insertStudent(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "INSERT INTO STUDENTS VALUES (STUDENTS_SEQ.NEXTVAL, ?, ?, ?, ?)";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, sDTO.getName());
+			pstat.setInt(2, sDTO.getKor());
+			pstat.setInt(3, sDTO.getEng());
+			pstat.setInt(4, sDTO.getMath());
+
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+		return result;
+	}
+
+	public List<StudentsDTO> selectStuedntByAll() throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+
+		String sql = "SELECT * FROM STUDENTS";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			try(ResultSet rs = pstat.executeQuery();) {
+				while(rs.next()) {
+					StudentsDTO sDTO = new StudentsDTO();
+					sDTO.setId(rs.getInt("ID"));
+					sDTO.setName(rs.getString("NAME"));
+					sDTO.setKor(rs.getInt("KOR"));
+					sDTO.setEng(rs.getInt("ENG"));
+					sDTO.setMath(rs.getInt("MATH"));
+
+					result.add(sDTO);
+				}
+			}
+		}
+		return result;
+	}
+
+	public List<StudentsDTO> selectStuedntByName(StudentsDTO sDTO) throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+
+		String sql = "SELECT * FROM STUDENTS WHERE NAME LIKE ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, "%" + sDTO.getName() + "%");
+
+			try(ResultSet rs = pstat.executeQuery();) {
+				while(rs.next()) {
+					sDTO = new StudentsDTO();
+					sDTO.setId(rs.getInt("ID"));
+					sDTO.setName(rs.getString("NAME"));
+					sDTO.setKor(rs.getInt("KOR"));
+					sDTO.setEng(rs.getInt("ENG"));
+					sDTO.setMath(rs.getInt("MATH"));
+
+					result.add(sDTO);
+				}
+			}
+		}
+		return result;
+	}
+
+	public boolean selectStudentById(StudentsDTO sDTO) throws Exception {
+		boolean result = false;
+
+		String sql = "SELECT * FROM STUDENTS WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setInt(1, sDTO.getId());
+
+			try(ResultSet rs = pstat.executeQuery();) {
+				result = rs.next();
+			}
+		}
+		return result;
+	}
+
+	public int updateStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "UPDATE STUDENTS SET NAME = '" + sDTO.getName() + "', KOR = " + sDTO.getKor() + ", ENG = " + sDTO.getEng() + ", MATH = " + sDTO.getMath() + " WHERE ID = " + sDTO.getId();
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				Statement stat = conn.createStatement();) {
+			result = stat.executeUpdate(sql);
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public int deleteStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "DELETE FROM STUDENTS WHERE ID = " + sDTO.getId();
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				Statement stat = conn.createStatement();) {
+			result = stat.executeUpdate(sql);
+
+			conn.commit();
+		}
+
+		return result;
+	}
+}

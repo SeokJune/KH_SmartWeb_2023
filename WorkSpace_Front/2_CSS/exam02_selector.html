@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam02_selector</title>
+    <!-- 태그 선택자 >> 클래스 선택자 >> ID 선택자 >> Inline Style >> !important -->
+    <style>
+        /* 태그 선택자 */
+        p {
+            /* 글씨 색 */
+            color: #0000FF;
+            /* 테두리 - 선굵기 선유형 선색깔 */
+            border: 1px solid #000000;
+            /* 배경 색 */
+            background-color: #AAAAFF;
+        }
+
+        div {
+            color: #AAAAFF;
+            background-color: #0000FF;
+        }
+
+        /* # - ID 선택자*/
+        #second {
+            color: brown;
+            background-color: darkblue;
+        }
+
+        /* . - 클래스 선택자 */
+        .target {
+            color: #FF0000;
+            background-color: #00FFFF;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Selector : 선택자 -->
+    <!-- 나열 된 HTML 요소들 중 어떤 대상을 스타일링 할 것인지 지정하는 문법 -->
+    <!-- p{Paragraph 태그 $}*5 -->
+    <p>Paragraph 태그 1</p>
+    <p id="second">Paragraph 태그 2</p>
+    <p class="target">Paragraph 태그 3</p>
+    <p>Paragraph 태그 4</p>
+    <p class="target">Paragraph 태그 5</p>
+    <div>PT3</div>
+</body>
+
+</html>

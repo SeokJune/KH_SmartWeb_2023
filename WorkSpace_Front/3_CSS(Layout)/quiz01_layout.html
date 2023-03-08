@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz01_layout</title>
+    <style>
+        div {
+            border: 2px solid black;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: larger;
+        }
+
+        .container {
+            width: 80%;
+            height: 700px;
+            margin: auto;
+        }
+
+        .header {
+            width: 100%;
+            height: 20%;
+        }
+
+        .header>* {
+            float: left;
+        }
+
+        .header>.Logo {
+            width: 20%;
+            height: 100%;
+        }
+
+        .header>.Title {
+            width: 50%;
+            height: 100%;
+            background-color: red;
+        }
+
+        .header>.Reserved {
+            width: 30%;
+            height: 100%;
+        }
+
+        .navi {
+            width: 100%;
+            height: 5%;
+        }
+
+        .body {
+            width: 100%;
+            height: 55%;
+        }
+
+        .body>* {
+            float: left;
+        }
+
+        .body>.Contents {
+            width: 70%;
+            height: 100%;
+        }
+
+        .body>.Info {
+            width: 30%;
+            height: 100%;
+        }
+
+        .body>.Info>.LoginBox {
+            width: 100%;
+            height: 20%;
+        }
+
+        .body>.Info>.Email {
+            width: 100%;
+            height: 80%;
+        }
+
+        .footer {
+            width: 100%;
+            height: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="Logo">Logo</div>
+            <div class="Title">Title</div>
+            <div class="Reserved">Reserved</div>
+        </div>
+        <div class="navi">Navigatior</div>
+        <div class="body">
+            <div class="Contents">Contents</div>
+            <div class="Info">
+                <div class="LoginBox">LoginBox</div>
+                <div class="Email">Email</div>
+            </div>
+        </div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+import dto.MembersDTO;
+import main.Main;
+
+public class MembersDAO {
+	public int insertMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		String sql = "";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				Statement stat = conn.createStatement();) {
+		}
+	}
+}

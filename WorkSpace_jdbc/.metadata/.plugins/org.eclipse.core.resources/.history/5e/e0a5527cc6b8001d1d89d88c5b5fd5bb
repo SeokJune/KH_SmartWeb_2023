@@ -1,0 +1,15 @@
+package commons;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+public class Test {
+	public static void main(String[] args) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd 24hh:mm:ss");
+		
+		System.out.println(sdf.format(ts));
+		
+	}
+}

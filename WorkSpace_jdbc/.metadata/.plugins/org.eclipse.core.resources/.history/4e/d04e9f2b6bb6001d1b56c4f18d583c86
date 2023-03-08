@@ -1,0 +1,133 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.StudentsDTO;
+
+// try ~ catch				- 실행코드 내에서 하나 이상의 예외가 발생하고, 이를 모두 한가지 로직으로 처리할 경우
+// try ~ catch, catch, ...	- 실행코드 내에서 다양한 종류의 예외가 발생하고, 이를 다 따로따로 터리해야 할 경우
+// try ~ finally			- 실행코드를 완료하거나 예외가 발생했을 시, 반드시(무조건) 실행되어야 할 코드가 있는 경우
+// try ~ catch ~ finally	- 
+// try with resources		- close가 필요한 자원을 사용하는 경우, 절대적으로 자원을 close하는 거 심플한 문법
+//							- AutoCloseable을 상속한 클래스에 한하여 적용 가능
+
+public class StudentsDAO{
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String id = "kh";
+	private String pw = "kh";
+
+	public int insertStudent(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "INSERT INTO STUDENTS VALUES (STUDENTS_SEQ.NEXTVAL, '" + sDTO.getName() + "', " + sDTO.getKor() + ", " + sDTO.getEng() + ", " + sDTO.getMath() + ")";
+
+		try(Connection conn = DriverManager.getConnection(this.url, this.id, this.pw);
+				Statement stat = conn.createStatement();) {
+			result = stat.executeUpdate(sql);
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public List<StudentsDTO> selectStuedntByAll() throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+
+		String sql = "SELECT ID, NAME, KOR, ENG, MATH FROM STUDENTS";
+
+		try(Connection conn = DriverManager.getConnection(this.url, this.id, this.pw);
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(sql);) {
+			while(rs.next()) {
+				StudentsDTO sDTO = new StudentsDTO();
+				sDTO.setId(rs.getInt("ID"));
+				sDTO.setName(rs.getString("NAME"));
+				sDTO.setKor(rs.getInt("KOR"));
+				sDTO.setEng(rs.getInt("ENG"));
+				sDTO.setMath(rs.getInt("MATH"));
+
+				result.add(sDTO);
+			}
+		}
+
+		return result;
+	}
+
+	public List<StudentsDTO> selectStuedntByName(StudentsDTO sDTO) throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+
+		String sql = "SELECT ID, NAME, KOR, ENG, MATH FROM STUDENTS WHERE NAME LIKE '%" + sDTO.getName() + "'%";
+
+		try(Connection conn = DriverManager.getConnection(this.url, this.id, this.pw);
+				Statement stat = conn.createStatement();
+				ResultSet rs = stat.executeQuery(sql);) {
+			while(rs.next()) {
+				sDTO = new StudentsDTO();
+				sDTO.setId(rs.getInt("ID"));
+				sDTO.setName(rs.getString("NAME"));
+				sDTO.setKor(rs.getInt("KOR"));
+				sDTO.setEng(rs.getInt("ENG"));
+				sDTO.setMath(rs.getInt("MATH"));
+
+				result.add(sDTO);
+			}
+		}
+
+		return result;
+	}
+
+	public boolean selectStudentById(StudentsDTO sDTO) throws Exception {
+		boolean result = false;
+
+		String sql = "SELECT * FROM STUDENTS WHERE ID = " + sDTO.getId();
+
+		this.connectionDB();
+
+		ResultSet rs = this.stat.executeQuery(sql);
+
+		if(rs.next()) { result = true; }
+
+		this.disconnectionDB();
+
+		return result;
+	}
+
+	public int updateStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "UPDATE STUDENTS SET NAME = '" + sDTO.getName() + "', KOR = " + sDTO.getKor() + ", ENG = " + sDTO.getEng() + ", MATH = " + sDTO.getMath() + " WHERE ID = " + sDTO.getId();
+
+		this.connectionDB();
+
+		result = this.stat.executeUpdate(sql);
+
+		this.conn.commit();
+
+		this.disconnectionDB();
+
+		return result;
+	}
+
+	public int deleteStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+
+		String sql = "DELETE FROM STUDENTS WHERE ID = " + sDTO.getId();
+
+		this.connectionDB();
+
+		result = this.stat.executeUpdate(sql);
+
+		this.conn.commit();
+
+		this.disconnectionDB();
+
+		return result;
+	}
+}

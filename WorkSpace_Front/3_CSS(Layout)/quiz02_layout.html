@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz02_layout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            text-align: center; 
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        div {
+            border: 1px solid #000000;
+        }
+
+        .Container {
+            width: 80%;
+            height: 800px;
+            margin: auto;
+        }
+
+        .Header {
+            width: auto;
+            height: 20%;
+            margin: auto;
+        }
+
+        .Header>* {
+            float: left;
+        }
+
+        .Header>.Logo {
+            width: 15%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .Header>.Title {
+            width: 70%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .Header>.Reserved {
+            width: 15%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .Navigatior {
+            width: auto;
+            height: 5%;
+            margin: auto;
+        }
+
+        .Body {
+            width: auto;
+            height: 55%;
+            margin: auto;
+        }
+
+        .Body>* {
+            float: left;
+        }
+
+        .Body>.Contents {
+            width: 70%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .Body>.List {
+            width: 30%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .Body>.List>.LoginBox {
+            width: auto;
+            height: 30%;
+            margin: auto;
+        }
+
+        .Body>.List>.Email {
+            width: auto;
+            height: 70%;
+            margin: auto;
+        }
+
+        .Footer {
+            width: auto;
+            height: 20%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Container">
+        <div class="Header">
+            <div class="Logo">Logo</div>
+            <div class="Title">Title</div>
+            <div class="Reserved">Reserved</div>
+        </div>
+        <div class="Navigatior">Navigatior</div>
+        <div class="Body">
+            <div class="Contents">Contents</div>
+            <div class="List">
+                <div class="LoginBox">LoginBox</div>
+                <div class="Email">Email</div>
+            </div>
+        </div>
+        <div class="Footer">Footer</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+1675646140005	Move compilation unit
+1675646162424	Move compilation unit
+1675646904206	Rename field 'members'
+1675646996446	Rename field 'index'
+1675647105191	Rename method 'getIndex'
+1675647115596	Rename method 'getMembers'
+1675647140359	Rename method 'insert'
+1675647201282	Rename method 'silverInsert'
+1675647350025	Rename local variable 'members'
+1675664551868	Rename method 'getSilverMembers'
+1675664583710	Rename method 'getSilverIndex'

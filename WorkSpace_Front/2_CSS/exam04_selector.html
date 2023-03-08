@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam04_selector</title>
+    <style>
+        /* 반응 선택자 */
+        /* hover : 마우스가 올라갔을때 변화 */
+        /* active : 클릭했을때 변화 */
+        p:hover {
+            background-color: aqua;
+            cursor: pointer;
+        }
+
+        p:active {
+            border: 5px solid red;
+        }
+
+        div.c {
+            color: crimson;
+        }
+
+        p:not(.d) {
+            border: 5px dotted darkorchid;
+        }
+
+        p:not(:last-of-type) {
+            color: indianred;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="c">Hover Test 1</p>
+    <p class="c">Hover Test 2</p>
+    <p class="d">Hover Test 3</p>
+    <p class="c">Hover Test 4</p>
+    <p class="c">Hover Test 5</p>
+
+    <div class="c">Hover div 1</div>
+    <div class="c">Hover div 2</div>
+    <div class="c">Hover div 3</div>
+    <div class="c">Hover div 4</div>
+    <div class="c">Hover div 5</div>
+</body>
+
+</html>

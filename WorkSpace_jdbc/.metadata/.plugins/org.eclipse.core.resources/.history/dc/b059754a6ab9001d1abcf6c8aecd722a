@@ -1,0 +1,67 @@
+package main;
+
+import java.util.Scanner;
+
+import dao.MembersDAO;
+import dto.MembersDTO;
+
+public class Main {
+	public static void main(String[] args) {
+		try(Scanner scan = new Scanner(System.in);) {
+			MembersDAO membersDAO = new MembersDAO();
+			try {
+				while(true) {
+					System.out.println("<<< 로그인 및 회원가입 >>>");
+					System.out.println("1. 로그인");
+					System.out.println("2. 회원가입");
+					System.out.println("3. 종료");
+					System.out.println(">>> ");
+					String menu = scan.nextLine();
+
+					if(menu.equals("1")) {
+						System.out.println("<< 로그인 >>");
+						MembersDTO membersDTO = new MembersDTO();
+						System.out.print("아이디 >> ");
+						membersDTO.setId(scan.nextLine());
+						System.out.print("패스워드 >> ");
+						membersDTO.setPw(scan.nextLine());
+
+						if(membersDAO.IsExistMember(membersDTO)) {
+							System.out.println("!! 로그인 성공 !!");
+							break;
+						} else {
+							System.out.println("!! 로그인 실패 !!");
+						}
+					} else if(menu.equals("2")) {
+						System.out.println("<< 회원가입 >>");
+						MembersDTO membersDTO = new MembersDTO();
+						System.out.print("아이디 >> ");
+						membersDTO.setId(scan.nextLine());
+						
+						if(membersDAO.IsExistId(membersDTO)) {
+							System.out.println("!! 중복된 아이디 !!");
+							continue;
+						}
+						
+						System.out.print("패스워드 >> ");
+						membersDTO.setPw(scan.nextLine());
+						System.out.print("이름 >> ");
+						membersDTO.setName(scan.nextLine());
+						System.out.print("연락처 >> ");
+						membersDTO.setContact(scan.nextLine());
+						
+						System.out.println(membersDAO.insertMember(membersDTO) > 0 ? "!! 가입 성공 !!" : "!! 가입 실패 !!");
+					} else if(menu.equals("3")) {
+						System.out.println("<< 프로그램 종료 >>");
+						System.exit(0);
+					} else {
+						System.out.println("!! 메뉴를 잘못 입력하셨습니다. !!");
+					}
+				}
+			} catch (Exception e) {
+				System.out.println("ERROR : 관리자에게 문의하세요.");
+				e.printStackTrace();
+			}
+		}
+	}
+}

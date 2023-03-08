@@ -1,0 +1,138 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import dto.MembersDTO;
+import dto.MessagesDTO;
+
+public class MessagesDAO {
+	private BasicDataSource basicDataSource;
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String username = "board";
+	private String password = "board";
+	private int initialSize = 1;
+
+	public MessagesDAO() {
+		this.basicDataSource = new BasicDataSource();
+		this.basicDataSource.setUrl(this.url);
+		this.basicDataSource.setUsername(this.username);
+		this.basicDataSource.setPassword(this.password);
+		this.basicDataSource.setInitialSize(this.initialSize);
+	}
+
+	public int insertMessage(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "INSERT INTO MESSAGES VALUES (MESSAGES_SEQ.NEXTVAL, ?, ?, DEFAULT)";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setString(1, dto.getWriter());
+				pstat.setString(2, dto.getMessage());
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public int updateMessage(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "UPDATE MESSAGES SET MESSAGE = ? WHERE SEQ = ?";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setString(1, dto.getMessage());
+				pstat.setLong(2, dto.getSeq());
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public int deleteMessage(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "DELETE FROM MESSAGES WHERE SEQ = ?";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setLong(1, dto.getSeq());
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public List<MessagesDTO> selectMessageALL() throws Exception {
+		List<MessagesDTO> result = new ArrayList<MessagesDTO>();
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "SELECT * FROM MESSAGES";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				try(ResultSet rs = pstat.executeQuery();) {
+					while(rs.next()) {
+						MessagesDTO dto = new MessagesDTO();
+						dto.setSeq(rs.getLong("SEQ"));
+						dto.setWriter(rs.getString("WRITER"));
+						dto.setMessage(rs.getString("MESSAGE"));
+						dto.setWrite_date(rs.getTimestamp("WRITE_DATE"));
+						result.add(dto);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	public List<MessagesDTO> selectMessagesByWriterMessage(String target) throws Exception {
+		List<MessagesDTO> result = new ArrayList<MessagesDTO>();
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "SELECT * FROM MESSAGES WHERE WRITER LIKE ? OR MESSAGE LIKE ?";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setString(1, "%" + target + "%");
+				pstat.setString(2, "%" + target + "%");
+				try(ResultSet rs = pstat.executeQuery();) {
+					while(rs.next()) {
+						MessagesDTO dto = new MessagesDTO();
+						dto.setSeq(rs.getLong("SEQ"));
+						dto.setWriter(rs.getString("WRITER"));
+						dto.setMessage(rs.getString("MESSAGE"));
+						dto.setWrite_date(rs.getTimestamp("WRITE_DATE"));
+						result.add(dto);
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	public Boolean IsExistSeq(MessagesDTO dto) throws Exception {
+		Boolean result = false;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "SELECT * FROM MEMBERS WHERE SEQ = ?";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setLong(1, dto.getSeq());
+				try(ResultSet rs = pstat.executeQuery();) {
+					result = rs.next();
+				}
+			}
+		}
+		return result;
+	}
+
+}

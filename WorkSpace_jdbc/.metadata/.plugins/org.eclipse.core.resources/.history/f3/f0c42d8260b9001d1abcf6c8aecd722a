@@ -1,0 +1,39 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+// add .jar : dbcp2, pool2, logging
+public class CommonsDAO {
+	private BasicDataSource basicDataSource;
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String username = "";
+	private String password = "";
+	private int initialSize = 0;
+	
+	public CommonsDAO() {
+		this.basicDataSource = new BasicDataSource();
+		this.basicDataSource.setUrl(this.url);
+		this.basicDataSource.setUsername(this.username);
+		this.basicDataSource.setPassword(this.password);
+		this.basicDataSource.setInitialSize(this.initialSize);
+	}
+	
+	public int insertCommons(CommonsDTO dto) throws Exception {
+		int result = 0;
+		
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "INSERT INTO [TABLE] [COLS] VALUES ()";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.setString(1, "????");
+				
+				result = pstat.executeUpdate();
+				
+				conn.commit();
+			}
+		}
+		return result;
+	}
+}

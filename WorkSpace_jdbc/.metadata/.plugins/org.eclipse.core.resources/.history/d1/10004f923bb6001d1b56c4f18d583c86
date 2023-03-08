@@ -1,0 +1,148 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.MoviesDTO;
+
+// 데이터롸 관현된 모든 작업을 총괄하는 클래스
+// DAO : Data Access Object
+public class MoviesDAO {
+
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String id = "kh";
+	private String pwd = "kh";
+
+	private Connection conn = null;
+	private Statement stat = null;
+
+	// DB 연결
+	private void movieConnect() throws Exception{
+		// Connection 생성
+		conn = DriverManager.getConnection(url, id, pwd);
+		// Statement 생성
+		stat = conn.createStatement();
+	}
+
+	// 
+	public void moviedisConnect(){
+		// Statement 종료
+		if(stat != null) {
+			try {
+				stat.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		// Connection 종료
+		if(conn != null) {
+			try {
+				movieConnect();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public int movieInsert(MoviesDTO mDTO) throws Exception {
+		movieConnect();
+		
+		String sql = "INSERT INTO MOVIES VALUES (MOVIES_SEQ.NEXTVAL, '" + mDTO.getTitle() + "', '" + mDTO.getGanre() + "')";
+		int result = stat.executeUpdate(sql);
+
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSelectAll() throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		String sql = "SELECT ID, TITLE, GERNE FROM MOVIES ORDER BY ID";
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			MoviesDTO mDTO = new MoviesDTO();
+			mDTO.setId(rs.getInt("ID"));
+			mDTO.setTitle(rs.getString("TITLE"));
+			mDTO.setGanre(rs.getString("GERNE"));
+			mlist.add(mDTO);
+		}
+		
+		movieConnect();
+
+		return mlist;
+	}
+
+	public boolean isIdExist(MoviesDTO mDTO) throws Exception {
+		boolean result = false;
+		String sql = "SELECT TITLE FROM MOVIES WHERE ID = " + mDTO.getId();
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		if(rs.next()) {
+			result = true;
+		}
+		
+		movieConnect();
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSerchByTitle(MoviesDTO mDTO) throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		String sql = "SELECT ID, TITLE, GERNE FROM MOVIES WHERE TITLE LIKE '%" + mDTO.getTitle() + "%'";
+
+		movieConnect();
+		
+		ResultSet rs = stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			MoviesDTO movieDTO = new MoviesDTO();
+			movieDTO.setId(rs.getInt("ID"));
+			movieDTO.setTitle(rs.getString("TITLE"));
+			movieDTO.setGanre(rs.getString("GERNE"));
+			mlist.add(movieDTO);
+		}
+		
+		movieConnect();
+
+		return mlist;
+	}
+
+	public int movieUpdate(MoviesDTO mDTO) throws Exception {
+		String sql = "UPDATE MOVIES SET TITLE = '" + mDTO.getTitle() + "', gerne = '" + mDTO.getGanre() + "' WHERE ID = " + mDTO.getId();
+
+		movieConnect();
+		
+		int result = stat.executeUpdate(sql);
+		
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+	public int movieDelete(MoviesDTO mDTO) throws Exception {
+		String sql = "DELETE FROM MOVIES WHERE ID = " + mDTO.getId();
+
+		movieConnect();
+		
+		int result = stat.executeUpdate(sql);
+
+		conn.commit();
+		movieConnect();
+
+		return result;
+	}
+
+}

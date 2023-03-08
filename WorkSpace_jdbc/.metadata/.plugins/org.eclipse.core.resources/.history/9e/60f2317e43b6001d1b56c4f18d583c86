@@ -1,0 +1,127 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.StudentsDTO;
+
+public class StudentsDAO {
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String id = "kh";
+	private String pw = "kh";
+	
+	private Connection conn = null;
+	private Statement stat = null;
+	
+	private void connectionDB() throws Exception {
+		this.conn = DriverManager.getConnection(this.url, this.id, this.pw);
+		this.stat = this.conn.createStatement();
+	}
+	
+	public void disconnectionDB() throws Exception {
+		if(this.stat != null) { this.stat.close(); }
+		if(this.conn != null) { this.conn.close(); }
+	}
+	
+	public int insertStudent(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+		
+		String sql = "INSERT INTO STUDENTS VALUES (STUDENTS_SEQ, '" + sDTO.getName() + "', " + sDTO.getKor() + ", " + sDTO.getEng() + ", " + sDTO.getMath() + ")";
+		
+		this.connectionDB();
+		
+		result = this.stat.executeUpdate(sql);
+		
+		return result;
+	}
+	
+	public List<StudentsDTO> selectStuedntByAll() throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+		
+		String sql = "SELECT ID, NAME, KOR, ENG, MATH, ROUND((KOR + ENG + MATH) / 3, 2) FROM STUDENTS";
+		
+		this.connectionDB();
+		
+		ResultSet rs = this.stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			StudentsDTO sDTO = new StudentsDTO();
+			sDTO.setId(rs.getInt(1));
+			sDTO.setName(rs.getString(2));
+			sDTO.setKor(rs.getInt(3));
+			sDTO.setEng(rs.getInt(4));
+			sDTO.setMath(rs.getInt(5));
+			sDTO.setAvg(rs.getInt(6));
+			
+			result.add(sDTO);
+		}
+		
+		return result;
+	}
+	
+	public List<StudentsDTO> selectStuedntByName(StudentsDTO sDTO) throws Exception {
+		List<StudentsDTO> result = new ArrayList<StudentsDTO>(); 
+		
+		String sql = "SELECT ID, NAME, KOR, ENG, MATH, ROUND((KOR + ENG + MATH) / 3, 2) FROM STUDENTS WHERE NAME = '" + sDTO.getName() + "'";
+		
+		this.connectionDB();
+		
+		ResultSet rs = this.stat.executeQuery(sql);
+		
+		while(rs.next()) {
+			sDTO = new StudentsDTO();
+			sDTO.setId(rs.getInt(1));
+			sDTO.setName(rs.getString(2));
+			sDTO.setKor(rs.getInt(3));
+			sDTO.setEng(rs.getInt(4));
+			sDTO.setMath(rs.getInt(5));
+			sDTO.setAvg(rs.getInt(6));
+			
+			result.add(sDTO);
+		}
+		
+		return result;
+	}
+	
+	public boolean selectStudentById(StudentsDTO sDTO) throws Exception {
+		boolean result = false;
+		
+		String sql = "SELECT * FROM STUDENTS WHERE ID = " + sDTO.getId();
+		
+		this.connectionDB();
+		
+		ResultSet rs = this.stat.executeQuery(sql);
+		
+		if(rs.next()) { result = true; }
+		
+		return result;
+	}
+	
+	public int updateStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+		
+		String sql = "UPDATE STUDENTS SET KOR = " + sDTO.getKor() + ", ENG = " + sDTO.getEng() + ", MATH = " + sDTO.getMath() + " WHERE ID = " + sDTO.getId();
+		
+		this.connectionDB();
+		
+		result = this.stat.executeUpdate(sql);
+		
+		return result;
+	}
+	
+	public int deleteStudentById(StudentsDTO sDTO) throws Exception {
+		int result = 0;
+		
+		String sql = "DELETE FROM STUDENTS WHERE ID = " + sDTO.getId();
+		
+		this.connectionDB();
+		
+		result = this.stat.executeUpdate(sql);
+		
+		return result;
+	}
+}

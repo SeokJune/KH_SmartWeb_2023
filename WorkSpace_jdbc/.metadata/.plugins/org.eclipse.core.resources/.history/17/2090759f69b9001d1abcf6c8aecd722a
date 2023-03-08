@@ -1,0 +1,50 @@
+package main;
+
+import java.util.Scanner;
+
+import dao.MembersDAO;
+import dto.MembersDTO;
+
+public class Main {
+	public static void main(String[] args) {
+		try(Scanner scan = new Scanner(System.in);) {
+			MembersDAO membersDAO = new MembersDAO();
+			try {
+				while(true) {
+					System.out.println("<<< 로그인 및 회원가입 >>>");
+					System.out.println("1. 로그인");
+					System.out.println("2. 회원가입");
+					System.out.println("3. 종료");
+					System.out.println(">>> ");
+					String menu = scan.nextLine();
+
+					if(menu.equals("1")) {
+						System.out.println("<< 로그인 >>");
+						MembersDTO membersDTO = new MembersDTO();
+						System.out.print("아이디 >> ");
+						membersDTO.setId(scan.nextLine());
+						System.out.print("패스워드 >> ");
+						membersDTO.setPw(scan.nextLine());
+
+						if(membersDAO.IsExistMember(membersDTO)) {
+							System.out.println("!! 로그인 성공 !!");
+						} else {
+							System.out.println("!! 로그인 실패 !!");
+							continue;
+						}
+
+					} else if(menu.equals("2")) {
+						System.out.println("<< 회원가입 >>");
+						MembersDTO membersDTO = new MembersDTO();
+
+					} else if(menu.equals("3")) {
+						System.out.println("<< 프로그램 종료 >>");
+						System.exit(0);
+					} else {
+						System.out.println("!! 메뉴를 잘못 입력하셨습니다. !!");
+					}
+				}
+			}
+		}
+	}
+}

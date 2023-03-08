@@ -1,0 +1,110 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import dto.MessagesDTO;
+
+public class MessagesDAO {
+	private BasicDataSource basicDataSource;
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String username = "board";
+	private String password = "board";
+	private int initialSize = 1;
+
+	public MessagesDAO() {
+		this.basicDataSource = new BasicDataSource();
+		this.basicDataSource.setUrl(this.url);
+		this.basicDataSource.setUsername(this.username);
+		this.basicDataSource.setPassword(this.password);
+		this.basicDataSource.setInitialSize(this.initialSize);
+	}
+
+	public int insertCommons(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "INSERT INTO MEMBERS VALUES (MEMBERS_SEQ.NEXTVAL, ?, ?, DEFAULT)";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.set
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public int updateCommons(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "UPDATE [TABLE] SET [COL = VAL, ...] [WHERE [ ]]";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.set
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public int deleteCommons(MessagesDTO dto) throws Exception {
+		int result = 0;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "DELETE FROM [TABLE] [WHERE [ ]]";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.set
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+		return result;
+	}
+
+	public List<MessagesDTO> selectCommons(MessagesDTO dto) throws Exception {
+		List<MessagesDTO> result = new ArrayList<MessagesDTO>();
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "SELECT [COLS] FROM [TABLE] [WHERE [ ]]";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.set
+				try(ResultSet rs = pstat.executeQuery();) {
+					while(rs.next()) {
+						//CommonsDTO dto = new CommonsDTO();
+						//dto.set
+						result.add(dto);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	public Boolean selectCommonsById(MessagesDTO dto) throws Exception {
+		Boolean result = false;
+
+		try(Connection conn = this.basicDataSource.getConnection();) {
+			String sql = "SELECT [COLS] FROM [TABLE] [WHERE [ ]]";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				//pstat.set
+				try(ResultSet rs = pstat.executeQuery();) {
+					result = rs.next();
+				}
+			}
+		}
+		return result;
+	}
+
+}

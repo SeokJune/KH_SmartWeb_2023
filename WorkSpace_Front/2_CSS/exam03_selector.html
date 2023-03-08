@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>exam03_selector</title>
+    <style>
+        /* 속성 선택자 : 요소가 가진 속성을 이용해 선택 */
+        /* ^ : StartsWith 시작 */
+        /* $ : EndsWith 끝 */
+        /* * : Contains 포함 */
+        p[class="c1"] {
+            background-color: dodgerblue;
+        }
+
+        p[class^="d"] {
+            background-color: cadetblue;
+        }
+
+        p[class$="1"] {
+            color: cyan;
+        }
+
+        p[id*="4"] {
+            border: 4px dotted rebeccapurple;
+        }
+
+        p[test] {
+            background-color: chocolate;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="id1" class="c1">1</p>
+    <p id="id2" class="d2">2</p>
+    <p id="id3" test="1234">3</p>
+    <p id="id4" class="c2">4</p>
+    <p id="id5" class="d1">5</p>
+</body>
+
+</html>

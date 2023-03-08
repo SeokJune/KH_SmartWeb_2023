@@ -1,0 +1,158 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
+import dto.MembersDTO;
+import main.Main;
+
+// DBCP : DataBase Connection Pool
+//   DataBase Connection 객체의 사용량이 폭발적으로 증가할 시,
+//   DataBase의 서비스가 중단되지 않게금 충격을 완화하는 완충 장치
+//   정해진 갯수의 Connection 객체를 대여 / 반환하는 시스템으로 운용하며 안정성을 도모하지만
+//   접속자가 많을 시 상대적으로 기다리는 시간이 늘어날 수 있어 적절한 수요 배치가 필요함.
+
+//Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+
+
+public class MembersDAO {
+
+	private Connection getConnection() throws Exception {
+
+		BasicDataSource bds = new BasicDataSource();
+		bds.setUrl(Main.url);
+		bds.setUsername(Main.id);
+		bds.setPassword(Main.pw);
+		bds.setInitialSize(8);
+		return bds.getConnection();;
+	}
+
+	public int insertMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		
+
+		//try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);) {
+		try(BasicDataSource bds = new BasicDataSource();) {
+			bds.setUrl(Main.url);
+			bds.setUsername(Main.id);
+			bds.setPassword(Main.pw);
+			bds.setInitialSize(8);
+			bds.getConnection();
+			// PreparedStatement
+			String sql = "INSERT INTO MEMBERS (ID, PW, NAME, CONTACT) VALUES (?, ?, ?, ?)";
+			try(PreparedStatement pstat = conn.prepareStatement(sql);) {
+				pstat.setString(1, mDTO.getId());
+				pstat.setString(2, mDTO.getPw());
+				pstat.setString(3, mDTO.getName());
+				pstat.setString(4, mDTO.getContact());
+
+				result = pstat.executeUpdate();
+
+				conn.commit();
+			}
+		}
+
+		return result;
+	}
+
+	public List<MembersDTO> selectMembersAll() throws Exception {
+		List<MembersDTO> result = new ArrayList<MembersDTO>();
+
+		String sql = "SELECT * FROM MEMBERS";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			while(rs.next()) {
+				MembersDTO mDTO = new MembersDTO();
+				mDTO.setId(rs.getString("ID"));
+				mDTO.setPw(rs.getString("PW"));
+				mDTO.setName(rs.getString("NAME"));
+				mDTO.setContact(rs.getString("CONTACT"));
+				mDTO.setReg_date(rs.getTimestamp("REG_DATE"));
+
+				result.add(mDTO);
+			}
+		}
+		return result;
+	}
+
+	public boolean selectMembersByIdPw(MembersDTO mDTO) throws Exception {
+		boolean result = false;
+
+		String sql = "SELECT * FROM MEMBERS WHERE ID = ? AND PW = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+			pstat.setString(2, mDTO.getPw());
+
+			try(ResultSet rs = pstat.executeQuery();) {
+				result = rs.next();
+			}
+		}
+
+		return result;
+	}
+
+	public boolean selectMembersById(MembersDTO mDTO) throws Exception {
+		boolean result = false;
+
+		String sql = "SELECT * FROM MEMBERS WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+
+			try(ResultSet rs = pstat.executeQuery();) {
+				result = rs.next();
+			}
+		}
+
+		return result;
+	}
+
+	public int updateMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		String sql = "UPDATE MEMBERS SET PW = ?, NAME = ?, CONTACT = ?, U_DATE = DEFAULT WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getPw());
+			pstat.setString(2, mDTO.getName());
+			pstat.setString(3, mDTO.getContact());
+			pstat.setString(4, mDTO.getId());
+
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public int deleteMebers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		String sql = "DELETE FROM MEMBERS WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+}

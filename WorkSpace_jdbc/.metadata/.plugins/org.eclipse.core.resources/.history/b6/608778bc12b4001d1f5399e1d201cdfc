@@ -1,0 +1,103 @@
+package main;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+import model.MovieDTO;
+import model.MoviesDAO;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		// Netflix 영화 관리 프로그램
+		// 테이블 이름 : movies
+		// id - 1001 ~ 무한 까지 1씩 증가
+		// title - 문자열 최대 50바이트
+		// gerne - 문자열 20바이트
+		// 모두 not null
+
+		Scanner scan = new Scanner(System.in);
+		MoviesDAO m = new MoviesDAO();
+		while(true) {
+			System.out.println("<< NetFlix 영화 관리 프로그램 >>");
+			System.out.println("1. 신규 영화 등록");
+			System.out.println("2. 영화 목록 조회");
+			System.out.println("3. 영화 정보 수정 (ID)");
+			System.out.println("4. 영화 정보 삭제 (ID)");
+			System.out.println("5. 영화 정보 조회 (TITLE)");
+			System.out.println("0. 프로그램 종료");
+			System.out.print(">> ");
+			String menu = scan.nextLine();
+
+			try {
+				if(menu.equals("0")) {
+					System.out.println("프로그램 종료");
+					System.exit(0);
+				} else if(menu.equals("1")) {
+					// 1. 신규 영화 등록
+					System.out.print("신규 영화 제목 : ");
+					String title = scan.nextLine();
+					System.out.print(title + "의 장르 : ");
+					String gerne = scan.nextLine();
+
+					System.out.println(m.movieInsert(title, gerne) > 0 ? "등록 성공" : "등록 실패");
+				} else if(menu.equals("2")) {
+					// 2. 영화 목록 조회
+					List<MovieDTO> mlist = m.movieSelectAll();
+
+					System.out.println("ID\tTITLE\tGENRE");
+					for(MovieDTO movie : mlist) {
+						System.out.println(movie.getId() + "\t" + movie.getTitle() + "\t" + movie.getGanre());
+					}
+
+				} else if(menu.equals("3")) {
+					// 3. 영화 정보 수정 - ID / 모든 정보
+					System.out.print("수정할 영화 ID : ");
+					int id = Integer.parseInt(scan.nextLine());
+
+					String name = m.movieSelectById(id);
+
+					if(name == null) {
+						System.out.println("없는 ID");
+						continue;
+					}
+
+					System.out.print(name + "의 신규 제목 : ");
+					String title = scan.nextLine();
+					System.out.print(name + "의 신규 장르 : ");
+					String gerne = scan.nextLine();
+
+					System.out.println(m.movieUpdate(id, title, gerne) > 0 ? "수정 성공" : "수정 실패");
+				} else if(menu.equals("4")) {
+					// 4. 영화 정보 삭제 - ID
+					System.out.print("수정할 영화 ID : ");
+					int id = Integer.parseInt(scan.nextLine());
+
+					System.out.println(m.movieDelete(id) > 0 ? "삭제 성공" : "삭제 실패");
+				} else if (menu.equals("5")) {
+					// 5. 영화 정보 조회 (TITLE)
+					System.out.print("검색할 영화의 제목 : ");
+					String title = scan.nextLine();
+
+					List<MovieDTO> mlist = m.movieSelectByTitle(title);
+
+					System.out.println("ID\tTITLE\tGENRE");
+					for(MovieDTO movie : mlist) {
+						System.out.println(movie.getId() + "\t" + movie.getTitle() + "\t" + movie.getGanre());
+					}
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("관리자에게 문의하세요.");
+			} finally {
+				m.moviedisConnect();
+			}
+		}
+
+	}
+
+}

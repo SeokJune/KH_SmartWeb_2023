@@ -1,0 +1,131 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.MembersDTO;
+import main.Main;
+
+public class MembersDAO {
+
+	public int insertMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		// PreparedStatement
+		String sql = "INSERT INTO MEMBERS (ID, PW, NAME, CONTACT) VALUES (?, ?, ?, ?)";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+			pstat.setString(2, mDTO.getPw());
+			pstat.setString(3, mDTO.getName());
+			pstat.setString(4, mDTO.getContact());
+
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public List<MembersDTO> selectMembersAll() throws Exception {
+		List<MembersDTO> result = new ArrayList<MembersDTO>();
+
+		String sql = "SELECT * FROM MEMBERS";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery();) {
+			while(rs.next()) {
+				MembersDTO mDTO = new MembersDTO();
+				mDTO.setId(rs.getString("ID"));
+				mDTO.setPw(rs.getString("PW"));
+				mDTO.setName(rs.getString("NAME"));
+				mDTO.setContact(rs.getString("CONTACT"));
+				mDTO.setReg_date(rs.getTimestamp("REG_DATE"));
+
+				result.add(mDTO);
+			}
+		}
+	}
+
+	return result;
+}
+
+public boolean selectMembersByIdPw(MembersDTO mDTO) throws Exception {
+	boolean result = false;
+
+	String sql = "SELECT * FROM MEMBERS WHERE ID = ? AND PW = ?";
+
+	try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+			PreparedStatement pstat = conn.prepareStatement(sql);) {
+		pstat.setString(1, mDTO.getId());
+		pstat.setString(2, mDTO.getPw());
+
+		try(ResultSet rs = pstat.executeQuery();) {
+			result = rs.next();
+		}
+	}
+
+	return result;
+}
+
+public boolean selectMembersById(MembersDTO mDTO) throws Exception {
+	boolean result = false;
+
+	String sql = "SELECT * FROM MEMBERS WHERE ID = ?";
+
+	try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+			PreparedStatement pstat = conn.prepareStatement(sql);) {
+		pstat.setString(1, mDTO.getId());
+
+		try(ResultSet rs = pstat.executeQuery();) {
+			result = rs.next();
+		}
+	}
+
+	return result;
+}
+
+public int updateMembers(MembersDTO mDTO) throws Exception {
+	int result = 0;
+
+	String sql = "UPDATE MEMBERS SET PW = ?, NAME = ?, CONTACT = ?, U_DATE = DEFAULT WHERE ID = ?";
+
+	try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+			PreparedStatement pstat = conn.prepareStatement(sql);) {
+		pstat.setString(1, mDTO.getPw());
+		pstat.setString(2, mDTO.getName());
+		pstat.setString(3, mDTO.getContact());
+		pstat.setString(4, mDTO.getId());
+
+		result = pstat.executeUpdate();
+
+		conn.commit();
+	}
+
+	return result;
+}
+
+public int deleteMebers(MembersDTO mDTO) throws Exception {
+	int result = 0;
+
+	String sql = "DELETE FROM MEMBERS WHERE ID = ?";
+
+	try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+			PreparedStatement pstat = conn.prepareStatement(sql);) {
+		pstat.setString(1, mDTO.getId());
+
+		result = pstat.executeUpdate();
+
+		conn.commit();
+	}
+
+	return result;
+}
+}

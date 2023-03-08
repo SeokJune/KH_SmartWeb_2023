@@ -1,0 +1,130 @@
+package model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.MoviesDTO;
+
+// 데이터롸 관현된 모든 작업을 총괄하는 클래스
+// DAO : Data Access Object
+public class MoviesDAO {
+
+	private String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+	private String id = "kh";
+	private String pwd = "kh";
+
+	// DATA 삽입
+	public int movieInsert(MoviesDTO mDTO) throws Exception {
+		int result = 0;
+		// 삽입 쿼리문 작성
+		String sql = "INSERT INTO MOVIES VALUES (MOVIES_SEQ.NEXTVAL, '?', '?')";
+		
+		try(Connection conn = DriverManager.getConnection(url, id, pwd);
+				PreparedStatement pstat = conn.prepareStatement(sql)) {
+			pstat.setString(1, mDTO.getTitle());
+			pstat.setString(2, mDTO.getGanre());
+			
+			result = pstat.executeUpdate();
+			
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSelectAll() throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		// 조회 쿼리문 작성
+		String sql = "SELECT ID, TITLE, GERNE FROM MOVIES ORDER BY ID";
+		// DB 연결
+		movieConnect();
+		// 쿼리문 실행
+		ResultSet rs = stat.executeQuery(sql);
+		// 리스트에 결과 저장
+		while(rs.next()) {
+			MoviesDTO mDTO = new MoviesDTO();
+			mDTO.setId(rs.getInt("ID"));
+			mDTO.setTitle(rs.getString("TITLE"));
+			mDTO.setGanre(rs.getString("GERNE"));
+			mlist.add(mDTO);
+		}
+		// DB 연결 해제
+		movieConnect();
+
+		return mlist;
+	}
+
+	public boolean isIdExist(MoviesDTO mDTO) throws Exception {
+		boolean result = false;
+		// 조회 쿼리문 작성
+		String sql = "SELECT TITLE FROM MOVIES WHERE ID = " + mDTO.getId();
+		// DB 연결
+		movieConnect();
+		// 쿼리문 실행 및 결과 저장
+		ResultSet rs = stat.executeQuery(sql);
+		if(rs.next()) {
+			result = true;
+		}
+		// DB 연결 해제
+		movieConnect();
+
+		return result;
+	}
+
+	public List<MoviesDTO> movieSerchByTitle(MoviesDTO mDTO) throws Exception {
+		List<MoviesDTO> mlist = new ArrayList<MoviesDTO>();
+		// 조회 쿼리문 작성
+		String sql = "SELECT ID, TITLE, GERNE FROM MOVIES WHERE TITLE LIKE '%" + mDTO.getTitle() + "%'";
+		// DB 연결
+		movieConnect();
+		// 쿼리문 실행
+		ResultSet rs = stat.executeQuery(sql);
+		// 리스트에 결과 저장
+		while(rs.next()) {
+			MoviesDTO movieDTO = new MoviesDTO();
+			movieDTO.setId(rs.getInt("ID"));
+			movieDTO.setTitle(rs.getString("TITLE"));
+			movieDTO.setGanre(rs.getString("GERNE"));
+			mlist.add(movieDTO);
+		}
+		// DB 연결 해제
+		movieConnect();
+
+		return mlist;
+	}
+
+	public int movieUpdate(MoviesDTO mDTO) throws Exception {
+		// 수정 쿼리문 작성
+		String sql = "UPDATE MOVIES SET TITLE = '" + mDTO.getTitle() + "', gerne = '" + mDTO.getGanre() + "' WHERE ID = " + mDTO.getId();
+		// DB 연결
+		movieConnect();
+		// 쿼리문 실행 및 결과 저장
+		int result = stat.executeUpdate(sql);
+		// 영구 적용
+		conn.commit();
+		// DB 연결 해제
+		movieConnect();
+
+		return result;
+	}
+
+	public int movieDelete(MoviesDTO mDTO) throws Exception {
+		// 삭제 쿼리문 작성
+		String sql = "DELETE FROM MOVIES WHERE ID = " + mDTO.getId();
+		// DB 연결
+		movieConnect();
+		// 쿼리문 실행 및 결과 저장
+		int result = stat.executeUpdate(sql);
+		// 영구 적용
+		conn.commit();
+		// DB 연결 해제
+		movieConnect();
+
+		return result;
+	}
+
+}

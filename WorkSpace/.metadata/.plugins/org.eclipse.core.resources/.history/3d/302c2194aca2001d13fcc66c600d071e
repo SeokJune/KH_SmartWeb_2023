@@ -1,0 +1,71 @@
+package exam01;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Exam_01_Practie {
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		ArrayList<Movie> movieList = new ArrayList<Movie>();
+		
+		Movie[] movies = new Movie[5];
+		int index = 0;
+
+		while(true) {
+			int num = 0;
+			while(true) {
+				System.out.println("<< Netflix Simulator >>");
+				System.out.println("1. 신규 영화 등록");
+				System.out.println("2. 영화 목록 출력");
+				System.out.println("0. 종료");
+				System.out.print(">>  ");
+				try {
+					num = Integer.parseInt(scan.nextLine());
+					break;
+				} catch(Exception e) {
+					System.out.println("숫자를 입력해 주세요.");
+					e.printStackTrace();
+				}
+			}
+
+			if (num == 1) {
+				System.out.print("영화 제목 입력 >> ");
+				String title = scan.nextLine();
+				System.out.print("영화 장르 입력 >> ");
+				String genre = scan.nextLine();
+				double score = 0.0;
+				try {
+					System.out.print("영화 평점 입력 >> ");
+					score = Double.parseDouble(scan.nextLine());
+				} catch(Exception e) {
+					System.out.println("숫자를 입력해 주세요.");
+					e.printStackTrace();
+				}
+				
+				movieList.add(new Movie(title, genre, score));
+				
+				movies[index++] = new Movie(title, genre, score);
+
+			} else if (num == 2) {
+				for(Movie movie : movieList) {
+					System.out.println(movie.getTitle() + "\t" + movie.getGenre() + "\t" + movie.getGpa());
+				}
+				
+				for(Movie movie : movies) {
+					System.out.println(movie.getTitle() + "\t" + movie.getGenre() + "\t" + movie.getGpa());
+				}
+
+			} else if (num == 0) {
+				System.out.println("Netflix를 종료합니다.");
+				scan.close();
+				System.exit(0);
+			} else {
+				System.out.println("메뉴 번호를 다시 확인해주세요.");
+			}
+
+		}
+
+	}
+
+}

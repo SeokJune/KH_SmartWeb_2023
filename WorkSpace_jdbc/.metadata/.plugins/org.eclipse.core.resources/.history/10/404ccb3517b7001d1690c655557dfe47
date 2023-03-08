@@ -1,0 +1,89 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import dto.MembersDTO;
+import main.Main;
+
+public class MembersDAO {
+
+	public int insertMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		// PreparedStatement
+		String sql = "INSERT INTO MEMEBERS (ID, PW, NAME, CONTACT) VALUES (?, ?, ?, ?)";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+			pstat.setString(2, mDTO.getPw());
+			pstat.setString(3, mDTO.getName());
+			pstat.setString(4, mDTO.getContact());
+
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public boolean selectMembersByIdPw(MembersDTO mDTO) throws Exception {
+		boolean result = false;
+
+		String sql = "SELECT * FROM MEMBERS WHERE ID = ? AND PW = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+			pstat.setString(2, mDTO.getPw());
+			
+			try(ResultSet rs = pstat.executeQuery();) {
+				result = rs.next();
+			}
+		}
+
+		return result;
+	}
+
+	public int updateMembers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		String sql = "UPDATE MEMBERS SET PW = ?, NAME = ?, CONTACT = ?, U_DATE = DEFAULT WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getPw());
+			pstat.setString(2, mDTO.getName());
+			pstat.setString(3, mDTO.getContact());
+			pstat.setString(4, mDTO.getId());
+			
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+
+	public int deleteMebers(MembersDTO mDTO) throws Exception {
+		int result = 0;
+
+		String sql = "DELETE FROM MEMBERS WHERE ID = ?";
+
+		try(Connection conn = DriverManager.getConnection(Main.url, Main.id, Main.pw);
+				PreparedStatement pstat = conn.prepareStatement(sql);) {
+			pstat.setString(1, mDTO.getId());
+			
+			result = pstat.executeUpdate();
+
+			conn.commit();
+		}
+
+		return result;
+	}
+}
