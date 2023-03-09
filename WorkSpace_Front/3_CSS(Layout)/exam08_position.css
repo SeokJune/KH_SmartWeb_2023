@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    border: 1px solid black;
+}
+
+/* 뷰포트에 위치 고정시킬때 */
+.ebox {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+}
+
+.container {
+    width: 300px;
+    height: 3000px;
+    margin: auto;
+    position: relative;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+
+.box:hover {
+    z-index: 4;
+}
+
+#b1 {
+    top: 58px;
+    left: 50px;
+    background-color: #F008;
+}
+
+#b2 {
+    top: 25px;
+    left: 100px;
+    background-color: #0F08;
+}
+
+#b3 {
+    top: 100px;
+    left: 75px;
+    background-color: #00F8;
+}

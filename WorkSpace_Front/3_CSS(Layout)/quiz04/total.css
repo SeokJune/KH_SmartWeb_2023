@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    border: 1px solid #606060;
+}
+
+.container {
+    width: 90%;
+    height: 800px;
+}
+
+.container>.header {
+    width: auto;
+    height: 4%;
+}
+
+.container>.header>div{
+    float: left;
+}
+
+.container>.header>.logo{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+}
+
+.container>.header>.menu{
+    width: 30%;
+    height: 100%;
+}
+
+.container>.header>.title{
+    width: 45%;
+    height: 100%;
+}
+
+.container>.header>.icon{
+    width: 10%;
+    height: 100%;
+}
+
+.container>.header>.btn{
+    width: 15%;
+    height: 100%;
+}
+
+.container>.navigator {
+    width: auto;
+    height: 4%;
+}
+
+.container>.body {
+    width: auto;
+    height: 89%;
+}
+
+.container>.footer {
+    width: auto;
+    height: 3%;
+}

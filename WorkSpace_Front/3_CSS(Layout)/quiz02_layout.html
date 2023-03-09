@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>quiz02_layout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         * {
             box-sizing: border-box;
             margin: 0px;
             padding: 0px;
             font-size: large;
-            text-align: center;
             font-weight: bold;
         }
 
@@ -21,7 +23,8 @@
             margin: auto;
         }
 
-        input {
+        input,
+        button {
             border: none;
             background: none;
         }
@@ -123,7 +126,6 @@
         .Body>.Info>.LoginBox>.LoginTitle>input {
             width: 100%;
             height: 100%;
-            text-align: center;
             font-size: 30px;
             user-select: none;
         }
@@ -170,15 +172,21 @@
             height: 100%;
         }
 
-        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>div {
-            width: 100%;
-            height: 100%;
-            padding: 10%;
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>#loginbtn {
+            width: 70%;
+            height: 50%;
+            position: relative;
+            left: 15%;
+            top: 25%;
+            color: dodgerblue;
+            border: 1px solid dodgerblue;
+            transition: 1000ms;
         }
 
-        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>div>#loginbtn {
-            width: 100%;
-            height: 100%;
+        .Body>.Info>.LoginBox>.LoginInfo>.LoginBtn>#loginbtn:hover {
+            cursor: pointer;
+            background-color: aquamarine;
+            color: bisque;
         }
 
         .Body>.Info>.Email {
@@ -189,6 +197,7 @@
         .Body>.Info>.Email>.EmailTitle {
             width: auto;
             height: 10%;
+
         }
 
         .Body>.Info>.Email>.EmailList {
@@ -249,14 +258,15 @@
                             </div>
                         </div>
                         <div class="LoginBtn">
-                            <div>
-                                <button id="loginbtn">Login</button>
-                            </div>
+                            <button id="loginbtn">Login</button>
                         </div>
                     </div>
                 </div>
                 <div class="Email">
-                    <div class="EmailTitle">Mail box</div>
+                    <div class="EmailTitle">
+                        Mail box
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
                     <div class="EmailList">
                         <ul>
                             <li>1번째 메일입니다.</li>
@@ -284,7 +294,7 @@
                 </div>
             </div>
         </div>
-        <div class="Footer">Footer</div>
+        <div class="Footer">Copyright by LSJ since 2023. 03. 09.</div>
     </div>
 </body>
 

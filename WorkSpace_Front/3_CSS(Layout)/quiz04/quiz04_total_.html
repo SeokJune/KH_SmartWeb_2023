@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total</title>
+    <link rel="stylesheet" type="text/css" href="total.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title logo"><img class="maintitle"></div>
+            <div class="login">
+                <div class="loginbox">
+                    <div class="infobox">
+                        <div class="idbox"><input id="id" type="text" placeholder="ID를 입력해주세요."></div>
+                        <div class="pwbox"><input id="pw" type="password" placeholder="PW를 입력해주세요."></div>
+                    </div>
+                    <div class="loginbtnbox">
+                        <div class="loginsubbtnbox"><button>로그인</button></div>
+                    </div>
+                </div>
+                <div class="btnbox">
+                    <div class="subbtnbox">
+                        <div class="ibtn"><button>ID 찾기</button></div>
+                        <div class="vline">
+                            <hr>
+                        </div>
+                        <div class="pbtn"><button>PW 찾기</button></div>
+                        <div class="vline">
+                            <hr>
+                        </div>
+                        <div class="jbtn"><button>회원 가입</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="menulist">
+                <ul>
+                    <h2>아메리카</h2>
+                    <hr>
+                    <li>가이아나</li>
+                    <li>과테말라</li>
+                    <li>그레나다</li>
+                    <li>니제르</li>
+                    <li>도미니카 공화국</li>
+                    <li>...</li>
+                    <hr class="dline">
+                    <h2>아시아</h2>
+                    <hr>
+                    <li>네팔</li>
+                    <li>대한민국</li>
+                    <li>동티모르</li>
+                    <li>라오스</li>
+                    <li>레바논</li>
+                    <li>...</li>
+                    <hr class="dline">
+                    <h2>아프리카</h2>
+                    <hr>
+                    <li>가나</li>
+                    <li>가봉</li>
+                    <li>감비아</li>
+                    <li>기니</li>
+                    <li>기니비사우</li>
+                    <li>...</li>
+                    <hr class="dline">
+                    <h2>오세아니아</h2>
+                    <hr>
+                    <li>나우루</li>
+                    <li>뉴질랜드</li>
+                    <li>마셜 제도</li>
+                    <li>마이크로네시아 연방</li>
+                    <li>바누아투</li>
+                    <li>...</li>
+                    <hr class="dline">
+                    <h2>유럽</h2>
+                    <hr>
+                    <li>그리스</li>
+                    <li>네덜란드</li>
+                    <li>노르웨이</li>
+                    <li>덴마크</li>
+                    <li>독일</li>
+                    <li>...</li>
+                    <hr class="dline">
+                </ul>
+            </div>
+            <div class="contents">
+                <div class="navigator">
+                    <div class="navisub"><button class="navi" onclick="changeImg(1)">국기</button></div>
+                    <div class="navisub"><button class="navi" onclick="changeImg(2)">국가(구현X)</button></div>
+                    <div class="navisub"><button class="navi" onclick="changeImg(3)">수도</button></div>
+                    <div class="navisub"><button class="navi" onclick="changeImg(4)">역사</button></div>
+                    <div class="navisub"><button class="navi" onclick="changeImg(5)">기타(구현X)</button></div>
+                </div>
+                <div class="content">
+                    <img id="img">
+                </div>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+    <script>
+        function changeImg(num) {
+            if(num == 1) {
+                document.getElementById("img").src="./kor01.png";
+                document.getElementById("img").style="width:100%";
+            } else if(num == 2) {
+                document.getElementById("img").src="";
+            } else if(num == 3) {
+                document.getElementById("img").src="./kor03.jpg";
+                document.getElementById("img").style="width:100%";
+            } else if(num == 4) {
+                document.getElementById("img").src="./kor04.png";
+                document.getElementById("img").style="width:auto";
+            } else if(num == 5) {
+                document.getElementById("img").src="";
+            }
+        }
+    </script>
+</body>
+
+</html>

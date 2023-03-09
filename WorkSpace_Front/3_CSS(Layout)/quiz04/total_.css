@@ -1,0 +1,248 @@
+body{
+    background-image: "./logo.png";
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+
+.container,
+.header>.title,
+.header>.login>.loginbox,
+.header>.login>.btnbox,
+.body>.menulist,
+.body>.contents>.navigator,
+.body>.contents>.content,
+.footer {
+    border: 1px solid #575555;
+}
+
+.container {
+    width: 80%;
+    height: 800px;
+    margin: auto;
+    background-color: transparent;
+    /* background: linear-gradient(45deg, #FFFFFF10, #00FF0040, #FFFFFF10); */
+}
+
+input{
+    background-color: #00000010;
+    border:none;
+}
+#id{
+    border-bottom: 1px solid #575555;
+    border-right: 2px solid #575555;
+}
+#pw{
+    border-top: 1px solid #575555;
+    border-right: 2px solid #575555;
+}
+
+/* ---------- Header ---------- */
+.header {
+    width: auto;
+    height: 20%;
+}
+
+.header>.title {
+    float: left;
+    width: 70%;
+    height: 100%;
+    content: url("./logo.png");
+    alt: "로고 이미지";
+    
+}
+
+.header>.login {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.header>.login>.loginbox {
+    width: auto;
+    height: 70%;
+}
+
+.header>.login>.loginbox>.infobox {
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+.header>.login>.loginbox>.infobox>.idbox {
+    width: auto;
+    height: 50%;
+}
+
+.header>.login>.loginbox>.infobox>.pwbox {
+    width: auto;
+    height: 50%;
+}
+
+.header>.login>.loginbox>.infobox>div>input {
+    width: 100%;
+    height: 100%;
+}
+
+.header>.login>.loginbox>.loginbtnbox {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.header>.login>.loginbox>.loginbtnbox>.loginsubbtnbox {
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+}
+
+.header>.login>.loginbox>.loginbtnbox>.loginsubbtnbox>button {
+    width: 100%;
+    height: 100%;
+}
+
+.header>.login>.btnbox {
+    width: auto;
+    height: 30%;
+}
+
+.header>.login>.btnbox>.subbtnbox {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+}
+
+.header>.login>.btnbox>.subbtnbox>.vline {
+    float: left;
+    width: 5%;
+    height: 100%;
+}
+
+.header>.login>.btnbox>.subbtnbox>.ibtn {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+
+.header>.login>.btnbox>.subbtnbox>.pbtn {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.header>.login>.btnbox>.subbtnbox>.jbtn {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.header>.login>.btnbox>.subbtnbox>div>hr {
+    width: 3%;
+    height: 100%;
+    border-width: 0;
+    color: #575555;
+    background-color: #575555;
+    margin: auto;
+}
+
+.header>.login>.btnbox>.subbtnbox>div>button {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: transparent;
+    transition: 1000ms;
+}
+
+.header>.login>.btnbox>.subbtnbox>div>button:hover {
+    background-color: gray;
+    border: gray;
+}
+
+/* ---------- body ---------- */
+.body {
+    width: auto;
+    height: 70%;
+}
+
+.body>.menulist {
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+.body>.menulist>ul {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.body>.menulist>ul::-webkit-scrollbar {
+    display: none;
+}
+
+.body>.menulist>ul>li {
+    padding-left: 25%;
+    list-style-type: none;
+    font-size: 20px;
+    pointer-events: auto;
+}
+
+.body>.menulist>ul>li:hover {
+    background-color: #00000044;
+    border: 1px dotted;
+}
+
+.body>.menulist>ul>.dline{
+    border-top: 5px double black;
+}
+
+.body>.contents {
+    float: left;
+    width: 80%;
+    height: 100%;
+}
+
+.body>.contents>.navigator {
+    width: auto;
+    height: 10%;
+}
+
+.body>.contents>.navigator>.navisub{
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+.body>.contents>.navigator>.navisub>.navi{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 55px;
+    background-color: transparent;
+    border: none;
+    transition: 1000ms;
+}
+
+.body>.contents>.navigator>.navisub>.navi:hover {
+    background-color:#00000044;
+}
+
+.body>.contents>.content {
+    width: auto;
+    height: 90%;
+}
+
+.body>.contents>.content>#img{
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------- footer ---------- */
+.footer {
+    width: auto;
+    height: 10%;
+}

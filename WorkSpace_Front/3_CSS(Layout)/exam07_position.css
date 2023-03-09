@@ -1,0 +1,52 @@
+div{
+    border: 1px solid black;
+}
+
+.container{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+}
+
+.box{
+    width: 100px;
+    height: 100px;
+}
+/* pisition
+    relative : 원래 본인의 위치 기준
+    absolute : position이 static이 아닌 조상중 가장 가깐운것 기준 */
+/* #box1{
+    position: relative;
+    top: 20%;
+    left: 20%;
+} */
+
+/* #box1 {
+    position: absolute;
+    background-color: brown;
+    top: 20px;
+    left: 20px;
+}
+
+#box2 {
+    position: relative;
+    background-color: aqua;
+    top: 50px;
+    left: 50px;
+}
+
+#box3 {
+    background-color: blue;
+} */
+
+#box1 {
+    position: absolute;
+    background-color: #0000FF80;
+}
+
+#box2 {
+    position: absolute;
+    background-color: #FF000080;
+    top: 50px;
+    left: 50px;
+}
