@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 1000px;
+    height: 800px;
+    margin: auto;
+    position: relative;
+    border: 1px solid #000;
+}
+
+.container>.animal {
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    border: 10px solid #0FF4;
+    transition: 1000ms;
+}
+
+.container>.animal:hover{
+    transform: rotate(0.1turn);
+    z-index: 4;
+}
+
+.container>.animal:active{
+    transform: scale(1.5);
+    z-index: 5;
+}
+
+.container>.animal>img {
+    width: 100%;
+    height: 100%;
+}
+
+.container>#dog{
+    top: 50px;
+    left: 100px;
+}
+
+.container>#lion{
+    top: 50px;
+    right: 100px;
+}
+
+.container>#swan{
+    bottom: 50px;
+    left: 250px;
+}

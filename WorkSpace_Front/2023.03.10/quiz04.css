@@ -1,0 +1,46 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+
+.sidebox{
+    width: 200px;
+    height: 500px;
+    background-color: #AAA;
+    border: 1px solid black;
+    position: fixed;
+    top: 100px;
+    left: -160px;
+    transition: 1000ms;
+}
+
+.sidebox:hover{
+    transform: translate(160px);
+}
+
+.sidebox:hover .icon{
+    visibility: hidden;
+}
+
+.sidebox>.icon{
+    width: 20%;
+    height: 8%;
+    position: absolute;
+    right: 0%;
+    top: 44%;
+    background-color: black;
+}
+
+
+.sidebox>.sideboxmenu{
+    width: auto;
+    height: 10%;
+    font-size: 20px;
+    color: #FFF;
+    padding-left: 10%;
+}
+
+.sidebox>.icon:hover{
+    background-color: aqua;
+}

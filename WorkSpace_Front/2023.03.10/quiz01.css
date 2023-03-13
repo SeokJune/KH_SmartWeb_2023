@@ -1,0 +1,46 @@
+div {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    transition: 1000ms;
+}
+
+.rotate {
+    top: 100px;
+    left: 100px;
+}
+
+.rotate:hover{
+    transform: rotate(0.5turn);
+}
+
+.translate {
+    top: 300px;
+    left: 100px;
+}
+
+.translate:hover{
+    transform: translate(100px, 100px);
+}
+
+.scale {
+    top: 500px;
+    left: 100px;
+}
+
+.scale:hover{
+    transform: scale(2);
+}
+
+.mix {
+    top: 100px;
+    right: 100px;
+}
+
+.mix:hover{
+    /* transform: scaleY(); */
+    height: 500px;
+    background-color: black;
+}

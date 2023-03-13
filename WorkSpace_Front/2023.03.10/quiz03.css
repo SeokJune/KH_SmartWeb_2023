@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+div{
+    border: 1px solid black;
+}
+
+.navi{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+}
+
+.navi>div{
+    float: left;
+    width: 25%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #0FF3;
+}
+
+.text{
+    width: 80%;
+    margin: auto;
+}

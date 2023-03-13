@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSJ_PORTFOLIO</title>
+    <link rel="stylesheet" type="text/css" href="./lsj.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- js에서 $를 사용할때는 script에 jquery추가 -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="./scrollActionBlock.js"></script>
+    <script src="./onload.js"></script>
+</head>
+
+<body>
+    <div class="main_gnb">
+        <div class="topMenu">
+            <ul>
+                <li id="section1_li" onclick="movePage(1)">A</li>
+                <li id="section2_li" onclick="movePage(2)">C</li>
+                <li id="section3_li" onclick="movePage(3)">S</li>
+                <li id="section4_li" onclick="movePage(4)">P1</li>
+                <li id="section5_li" onclick="movePage(5)">P2</li>
+            </ul>
+        </div>
+        <div class="mainTitle" id="title">
+            <div>PORTFOLIO</div>
+        </div>
+        <div class="siteBox">
+            <div class="email">이 석 준 op2se1@gamil.com</div>
+            <div class="github">
+                <a target="_blank" href="https://github.com/SeokJune">
+                    https://github.com/SeokJune
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- About Me -->
+    <div class="section" id="section1" style="background-color: #aaa;">
+        <div class="section_vertical" style="background-color: #f005;">
+            <div class="aboutMe1" style="height: 53%; background-color: #0f05;">
+                <div class="text">늘 배우는 자세</div>
+                <!-- <i class="fa-solid fa-book-open"></i> -->
+                <div class="text_detail"></div>
+            </div>
+            <div class="aboutMe3" style="height: 47%; background-color: #00f5;">
+                <div class="text">계획적인 개발</div>
+                <!-- <i class="fa-light fa-calendar"></i> -->
+                <div class="text_detail"></div>
+            </div>
+        </div>
+        <div class="section_vertical" style="background-color: #0f05;">
+            <div class="aboutMe2" style="height: 53%; background-color: #00f5;">
+                <div class="text">다양한 프로젝트 경험</div>
+                <!-- <i class="fa-duotone fa-laptop"></i> -->
+                <div class="text_detail"></div>
+            </div>
+            <div class="aboutMe4" style="height: 47%; background-color: #f005;">
+                <div class="text">커뮤니케이션</div>
+                <!-- <i class="fa-solid fa-comments"></i> -->
+                <div class="text_detail"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Career -->
+    <div class="section" id="section2" style="background-color: #aaa;">
+        Career
+    </div>
+    <!-- Skills -->
+    <div class="section" id="section3" style="background-color: #aaa;">
+        Skills
+    </div>
+
+    <!-- Project01 -->
+    <div class="section" id="section4" style="background-color: #ff0;"></div>
+    <!-- Project02 -->
+    <div class="section" id="section5" style="background-color: #f0f;"></div>
+</body>
+
+</html>

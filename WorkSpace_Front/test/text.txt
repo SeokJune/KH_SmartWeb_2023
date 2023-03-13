@@ -1,0 +1,5 @@
+gnb : Global Navigation Bar
+
+
+align : 수직축 / 위 아래
+justify : 메인축 / 좌 우

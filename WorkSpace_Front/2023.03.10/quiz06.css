@@ -1,0 +1,53 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+
+div>div{
+}
+
+.menu{
+    width: 100%;
+    height: auto;
+}
+
+.menu>div{
+    float: left;
+    width: 25%;
+}
+
+.menu .title, .menu .menu{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #777;
+    color: #FFF;
+    border: 1px solid #000;
+}
+
+.menu>div>.title{
+    position: relative;
+    transition: 1000ms;
+}
+
+.menu>div>.menubox{
+    position: relative;
+    visibility: hidden;
+    height: 0px;
+    transition: 1000ms;
+}
+
+.menu>div>.menubox>menu{
+    overflow: hidden;
+}
+
+.menu>div>.title:hover{
+    background-color: #444;
+}
+
+
+.menu>div>.title:hover+.menubox{
+    visibility: visible;
+    height: 240px;
+}
