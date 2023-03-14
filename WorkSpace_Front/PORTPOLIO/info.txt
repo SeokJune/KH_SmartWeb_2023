@@ -1,8 +1,17 @@
 <Link> TAG
-  href - 외부 리소스(External resource)의 URL
-  rel - 외부 리소스 사이의 연관관계
+href : 외부 리소스(External resource)의 URL
+hreflang : 
+media : 
+rel : 외부 리소스 사이의 연관관계
     author - 해당 문서의 저자에 대한 링크
     icon - 사용자 인터페이스에서 해당 문서를 나타낼 리소스(일반적으로 아이콘)에 대한 링크
     license - 해당 문서의 저작권 정보에 대한 링크
     stylesheet - 스타일 시트로 사용할 외부 리소스에 대한 링크
-  type - 링크된 외부 리소스의 미디어 타입 (단, href 속성이 설정되어 있어야만 사용가능)
+sizes : 
+type : 링크된 외부 리소스의 미디어 타입 (단, href 속성이 설정되어 있어야만 사용가능)
+<scipt> TAG
+async : 
+charset : 
+defer : 
+sec : 
+type : 
