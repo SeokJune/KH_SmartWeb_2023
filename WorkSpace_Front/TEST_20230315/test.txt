@@ -1,0 +1,56 @@
+----- test01 원인 -----
+메뉴에 마우스를 올리면 해당 메뉴의 행이 #ccc 색상으로 바뀌도록 코드를 작성 << 이부분이 작성이 안되어 있다.
+    - 마우스를 올리면 이벤트 발생은 hover에 작성하면 된다.
+    - 메뉴의 행의 색이 바뀐다고 했으므로 선택자로 메뉴의 행을 호출하면 된다. 
+    - 행의 색상이 변한다고 했으므로 배경색에 #ccc를 주면된다.
+----- test01 조치내용 -----
+CSS의 Style 태그 안에
+.vertical-menu a:hover{
+    background-color: #ccc;
+}​
+​작성한다,
+단, .vertical-menu a.active{}
+앞 ​에 작성하면 과목을 제외한 메뉴에 적용이 되고
+뒤 ​에 작성하면 과목을 포함한 메뉴에 적용이 된다.​
+
+----- test02 원인 -----
+1. 회원여부는 회원과 비회원 중 하나만 선택되도록 하고 기본은 회원으로 함
+    - name의 값을 통일해야 하나만 선택되도록 할 수 있음
+    - 라디오 박스는 여러 항목 중 하나는 무조건 선택하도롣 할때 사용하는 것이므로 default 값으로 생각하는 곳에 checked를 추가해 주면 좋음
+
+2. 취미는 중복 선택이 가능해야 함
+    - 선택이 되도록 할려면 취미 종류(독서, 영화, 음악, 스포트) 앞에 checkbox를 만들어 주면됨
+
+3. 직업도 5개의 항목 중 4개의 항목이 보여지고 첫 번째 항목이 기본 선택되도록 함.(5번째는 "기타")
+    - select 태그중 보여주고 싶은 항목의 갯수는 size 속성을 통해 구현가능
+    - 첫번째 항목이 기본 선택되도록 하려면 학생(첫번째 항목)의 option 태그에 selected 속성을 작성하면됨
+
+4. 남기고 싶은 말은 5행 70열 크기로 설정
+    - 행은 rows 속성 / 열은 cols 속성 에 작성
+
+5. 초기화와 전송 버튼 작성
+    - button 태그 or input태그의 type 속성중 button 을 이용하여 작성​
+----- test02 조치내용 -----
+1. name 통일, checked 추가
+<input type="radio" name="member" value="yes">회원
+<input type="radio" name="guest" value="no">비회원
+>>>
+​<input type="radio" name="member" value="yes" checked>회원
+<input type="radio" name="member​" value="no">비회원​
+
+2. checkbox 추가
+<input type="checkbox">독서
+<input type="checkbox">영화
+<input type="checkbox">음악
+<input type="checkbox">스포츠​
+
+3. <select>에 size 속성 추가 / 기본 선택 추가
+<select name="job" size="4">
+​<option value="stndent" selected>학생</option>​
+
+4. 행(rows), 열(cols) 추가
+<textarea name="message" rows="5" cols="70" placeholder="150자 내외로 글을 남겨주세요.">
+
+5. 버튼으로 변경 (<button> or <input type="button">)
+<button>초기화</button>
+<input type="button" value="전송"> 
